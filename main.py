@@ -2,23 +2,19 @@ import sqlite3
 conexao = sqlite3.connect('todo-db')
 cursor = conexao.cursor()
 
-
+cursor.execute('''CREATE TABLE if not exists CATEGORY (
+    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    name VARCHAR (50)
+);''')
+               
 cursor.execute('''CREATE TABLE if not exists TODO (
-    id INT AUTO_INCREMENT NOT NULL,
+    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     name VARCHAR (50) UNIQUE,
     date VARCHAR (10),
     status VARCHAR (10),
     category_id INT NOT NULL,
-        PRIMARY KEY (id)
         FOREIGN KEY (category_id) REFERENCES category(id)
 );''')
-
-cursor.execute('''CREATE TABLE if not exists CATEGORY (
-    id INT AUTO_INCREMENT  NOT NULL,
-    name VARCHAR (50),
-        PRIMARY KEY (id)
-);''')
-
 
 print('-' * 30)
 print('-=-= TASKS =-=-')
@@ -30,10 +26,10 @@ Opt = int(input('Choose your option: '))
 
 while True: 
     if Opt == 1:
-        TaskName = str(input('Task name: '))
-        TaskDate = str(input('Task date (mm/dd/yyyy):'))
-        TaskStatus = str(input('Task status: '))
-        TaskCateg = str(input('Task category: '))
+        TaskName = str(input('Task name: ')).strip()
+        TaskDate = str(input('Task date (mm/dd/yyyy): ')).strip()
+        TaskStatus = str(input('Task status: ')).strip()
+        TaskCateg = str(input('Task category: ')).strip()
         print(f'| {TaskName} \n| {TaskDate} \n| {TaskCateg} \n | {TaskStatus} \n| OK!' )
 
         data = [TaskName, TaskDate, TaskStatus, TaskCateg]
