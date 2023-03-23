@@ -77,7 +77,7 @@ def select_bydate_tasks():
         print(task)
 
 
-def check_tasks():
+def check_task():
     CheckedTask = str(input('Task name to be checked: ')).strip()
     data = ['CHECKED', CheckedTask]
     sql_check_task = 'UPDATE TASK SET status = ? WHERE name = ?'
